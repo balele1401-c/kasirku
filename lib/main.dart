@@ -7,9 +7,8 @@ import 'providers/karyawan_provider.dart';
 import 'providers/produk_provider.dart';
 import 'providers/toko_provider.dart';
 import 'providers/transaksi_provider.dart';
-import 'screens/kasir_home_screen.dart';
 import 'screens/login_screen.dart';
-import 'screens/owner_dashboard_screen.dart';
+import 'screens/main_navigation_shell.dart';
 import 'screens/setup_toko_screen.dart';
 import 'services/firebase_service.dart';
 import 'utils/app_theme.dart';
@@ -83,9 +82,9 @@ class AuthWrapper extends StatelessWidget {
     }
 
     if (authProvider.karyawan!.isOwner) {
-      return const OwnerDashboardScreen();
+      return const MainNavigationShell(initialIndex: 0);
     } else {
-      return const KasirHomeScreen();
+      return const MainNavigationShell(initialIndex: 0);
     }
   }
 }
