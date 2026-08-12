@@ -10,7 +10,8 @@ import 'produk_form_screen.dart';
 class ProdukListScreen extends StatelessWidget {
   const ProdukListScreen({super.key});
 
-  void _showDeleteDialog(BuildContext context, String tokoId, ProdukModel produk) {
+  void _showDeleteDialog(
+      BuildContext context, String tokoId, ProdukModel produk) {
     showDialog(
       context: context,
       builder: (dialogCtx) => AlertDialog(
@@ -72,12 +73,27 @@ class ProdukListScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.surface,
       appBar: AppBar(
-        title: const Text('Kelola Produk'),
+        backgroundColor: AppColors.surface,
         elevation: 0,
+        title: Text(
+          'KasirKu',
+          style: theme.textTheme.headlineMedium?.copyWith(
+            color: AppColors.primary,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search, color: AppColors.onSurfaceVariant),
+            onPressed: () {},
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: AppColors.primary,
         foregroundColor: AppColors.onPrimary,
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         icon: const Icon(Icons.add),
         label: const Text('Tambah Produk'),
         onPressed: () {
@@ -94,243 +110,269 @@ class ProdukListScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
 
-          if (snapshot.hasError) {
-            return Center(
-              child: Text('Terjadi kesalahan: ${snapshot.error}'),
-            );
-          }
-
           final produkList = produkProvider.filteredProdukList;
           final categories = ['Semua', ...produkProvider.categories];
 
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Search & Filter Header
+              // Page Context Header
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextField(
-                      onChanged: (val) => produkProvider.setSearchQuery(val),
-                      decoration: InputDecoration(
-                        hintText: 'Cari produk atau kategori...',
-                        prefixIcon: const Icon(Icons.search, color: AppColors.outline),
-                        suffixIcon: produkProvider.searchQuery.isNotEmpty
-                            ? IconButton(
-                                icon: const Icon(Icons.clear),
-                                onPressed: () => produkProvider.setSearchQuery(''),
-                              )
-                            : null,
+                    Text(
+                      'Manajemen Produk',
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: AppColors.onSurface,
                       ),
                     ),
-                    const SizedBox(height: 12),
-
-                    // Category Chips Horizontal Scroll
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: categories.map((cat) {
-                          final isSelected = (cat == 'Semua' &&
-                                  produkProvider.selectedCategory == null) ||
-                              cat == produkProvider.selectedCategory;
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: ChoiceChip(
-                              label: Text(cat),
-                              selected: isSelected,
-                              onSelected: (selected) {
-                                if (selected) {
-                                  produkProvider.setCategoryFilter(
-                                      cat == 'Semua' ? null : cat);
-                                }
-                              },
-                            ),
-                          );
-                        }).toList(),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Kelola katalog dan stok barang Anda.',
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: AppColors.onSurfaceVariant,
+                        fontSize: 14,
                       ),
                     ),
                   ],
                 ),
               ),
 
-              // Product List Grid
+              // Filter Chips Row
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Row(
+                  children: categories.map((cat) {
+                    final isSelected = (cat == 'Semua' &&
+                            produkProvider.selectedCategory == null) ||
+                        cat == produkProvider.selectedCategory;
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: ChoiceChip(
+                        label: Text(cat),
+                        selected: isSelected,
+                        onSelected: (selected) {
+                          if (selected) {
+                            produkProvider.setCategoryFilter(
+                                cat == 'Semua' ? null : cat);
+                          }
+                        },
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+
+              // Product List (Stitch exact list item format)
               Expanded(
                 child: produkList.isEmpty
                     ? Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.inventory_2_outlined,
-                              size: 64,
-                              color: AppColors.outline,
-                            ),
-                            const SizedBox(height: 12),
-                            Text(
-                              'Belum ada produk',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                color: AppColors.onSurfaceVariant,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              'Klik tombol "Tambah Produk" di bawah untuk memulai.',
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                color: AppColors.outline,
-                              ),
-                            ),
-                          ],
+                        child: Text(
+                          'Belum ada produk.',
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: AppColors.onSurfaceVariant,
+                          ),
                         ),
                       )
-                    : GridView.builder(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 8),
-                        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 220,
-                          childAspectRatio: 0.72,
-                          crossAxisSpacing: 12,
-                          mainAxisSpacing: 12,
+                    : ListView.builder(
+                        padding: const EdgeInsets.only(
+                          left: 16,
+                          right: 16,
+                          top: 8,
+                          bottom: 90,
                         ),
                         itemCount: produkList.length,
                         itemBuilder: (context, index) {
                           final produk = produkList[index];
                           final isLowStock = produk.isStokMenipis;
 
-                          return Card(
-                            clipBehavior: Clip.antiAlias,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (_) =>
-                                        ProdukFormScreen(produk: produk),
-                                  ),
-                                );
-                              },
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Product Photo Header
-                                  Expanded(
-                                    child: Stack(
-                                      children: [
-                                        Container(
-                                          width: double.infinity,
-                                          color: AppColors.surfaceContainerHigh,
-                                          child: produk.fotoUrl != null &&
-                                                  produk.fotoUrl!.isNotEmpty
-                                              ? Image.network(
-                                                  produk.fotoUrl!,
-                                                  fit: BoxFit.cover,
-                                                  errorBuilder:
-                                                      (context, error, stackTrace) =>
-                                                          const Icon(
-                                                    Icons.image_not_supported,
-                                                    size: 40,
-                                                    color: AppColors.outline,
-                                                  ),
-                                                )
-                                              : const Icon(
-                                                  Icons.fastfood_rounded,
-                                                  size: 48,
-                                                  color: AppColors.outline,
-                                                ),
+                          return Container(
+                            margin: const EdgeInsets.only(bottom: 10),
+                            decoration: BoxDecoration(
+                              color: AppColors.surfaceContainerLowest,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: isLowStock
+                                    ? AppColors.errorContainer
+                                    : AppColors.outlineVariant,
+                                width: 1,
+                              ),
+                            ),
+                            child: Stack(
+                              children: [
+                                // Red indicator line on left for low stock
+                                if (isLowStock)
+                                  Positioned(
+                                    left: 0,
+                                    top: 0,
+                                    bottom: 0,
+                                    child: Container(
+                                      width: 4,
+                                      decoration: const BoxDecoration(
+                                        color: AppColors.error,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(12),
+                                          bottomLeft: Radius.circular(12),
                                         ),
+                                      ),
+                                    ),
+                                  ),
+                                Padding(
+                                  padding: const EdgeInsets.all(12),
+                                  child: Row(
+                                    children: [
+                                      // Product Image Thumbnail
+                                      Container(
+                                        width: 64,
+                                        height: 64,
+                                        decoration: BoxDecoration(
+                                          color: AppColors.surfaceContainerHigh,
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        clipBehavior: Clip.antiAlias,
+                                        child: produk.fotoUrl != null &&
+                                                produk.fotoUrl!.isNotEmpty
+                                            ? Image.network(
+                                                produk.fotoUrl!,
+                                                fit: BoxFit.cover,
+                                                errorBuilder:
+                                                    (context, error, stackTrace) =>
+                                                        const Icon(
+                                                  Icons.fastfood_outlined,
+                                                  color:
+                                                      AppColors.onSurfaceVariant,
+                                                ),
+                                              )
+                                            : const Icon(
+                                                Icons.fastfood_outlined,
+                                                color:
+                                                    AppColors.onSurfaceVariant,
+                                              ),
+                                      ),
+                                      const SizedBox(width: 12),
 
-                                        // Category Badge
-                                        Positioned(
-                                          top: 8,
-                                          left: 8,
-                                          child: Container(
+                                      // Product Details
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              produk.nama,
+                                              style: theme.textTheme.labelLarge
+                                                  ?.copyWith(
+                                                fontWeight: FontWeight.bold,
+                                                color: AppColors.onSurface,
+                                                fontSize: 15,
+                                              ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            const SizedBox(height: 2),
+                                            Text(
+                                              produk.kategori,
+                                              style: theme.textTheme.labelMedium
+                                                  ?.copyWith(
+                                                color:
+                                                    AppColors.onSurfaceVariant,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              currencyFormatter
+                                                  .format(produk.hargaJual),
+                                              style: theme.textTheme.labelLarge
+                                                  ?.copyWith(
+                                                color: AppColors.primary,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+
+                                      // Stock Status Badge & Edit/Delete Action Icons
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Container(
                                             padding: const EdgeInsets.symmetric(
-                                                horizontal: 8, vertical: 4),
+                                                horizontal: 10, vertical: 4),
                                             decoration: BoxDecoration(
-                                              color: Colors.black.withAlpha(153),
+                                              color: isLowStock
+                                                  ? AppColors.errorContainer
+                                                  : AppColors.secondaryContainer,
                                               borderRadius:
                                                   BorderRadius.circular(12),
                                             ),
                                             child: Text(
-                                              produk.kategori,
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w600,
+                                              isLowStock
+                                                  ? 'Stok Rendah (${produk.stok})'
+                                                  : 'Stok: ${produk.stok}',
+                                              style: TextStyle(
+                                                color: isLowStock
+                                                    ? AppColors.onErrorContainer
+                                                    : AppColors
+                                                        .onSecondaryContainer,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
                                               ),
                                             ),
                                           ),
-                                        ),
-
-                                        // Delete Button
-                                        Positioned(
-                                          top: 4,
-                                          right: 4,
-                                          child: IconButton(
-                                            icon: const Icon(
-                                              Icons.delete_outline,
-                                              color: AppColors.error,
-                                            ),
-                                            onPressed: () => _showDeleteDialog(
-                                                context, tokoId, produk),
+                                          const SizedBox(height: 8),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              InkWell(
+                                                onTap: () {
+                                                  Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                      builder: (_) =>
+                                                          ProdukFormScreen(
+                                                        produk: produk,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                                child: const Padding(
+                                                  padding: EdgeInsets.all(4.0),
+                                                  child: Icon(
+                                                    Icons.edit_outlined,
+                                                    size: 20,
+                                                    color: AppColors
+                                                        .onSurfaceVariant,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 8),
+                                              InkWell(
+                                                onTap: () => _showDeleteDialog(
+                                                    context, tokoId, produk),
+                                                child: const Padding(
+                                                  padding: EdgeInsets.all(4.0),
+                                                  child: Icon(
+                                                    Icons.delete_outline_rounded,
+                                                    size: 20,
+                                                    color: AppColors.error,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                      ],
-                                    ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
-
-                                  // Product Info Body
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          produk.nama,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: theme.textTheme.labelLarge
-                                              ?.copyWith(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 2),
-                                        Text(
-                                          currencyFormatter.format(produk.hargaJual),
-                                          style: theme.textTheme.bodyMedium
-                                              ?.copyWith(
-                                            color: AppColors.primary,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 6),
-
-                                        // Stock Badge
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 8, vertical: 2),
-                                          decoration: BoxDecoration(
-                                            color: isLowStock
-                                                ? AppColors.errorContainer
-                                                : AppColors.secondaryContainer,
-                                            borderRadius:
-                                                BorderRadius.circular(4),
-                                          ),
-                                          child: Text(
-                                            'Stok: ${produk.stok}',
-                                            style: TextStyle(
-                                              color: isLowStock
-                                                  ? AppColors.onErrorContainer
-                                                  : AppColors.onSecondaryContainer,
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           );
                         },
