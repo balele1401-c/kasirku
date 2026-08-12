@@ -349,27 +349,92 @@ class _KasirHomeScreenState extends State<KasirHomeScreen> {
                                                     overflow: TextOverflow.ellipsis,
                                                   ),
                                                 ),
-                                                InkWell(
-                                                  onTap: isOutOfStock
-                                                      ? null
-                                                      : () => cartProvider
-                                                          .addItem(produk),
-                                                  child: Container(
-                                                    width: 32,
-                                                    height: 32,
-                                                    decoration: const BoxDecoration(
-                                                      color: AppColors
-                                                          .secondaryContainer,
-                                                      shape: BoxShape.circle,
+                                                if (inCartQty == 0)
+                                                  InkWell(
+                                                    onTap: isOutOfStock
+                                                        ? null
+                                                        : () => cartProvider
+                                                            .addItem(produk),
+                                                    child: Container(
+                                                      width: 32,
+                                                      height: 32,
+                                                      decoration: const BoxDecoration(
+                                                        color: AppColors
+                                                            .secondaryContainer,
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: const Icon(
+                                                        Icons.add,
+                                                        size: 20,
+                                                        color: AppColors
+                                                            .onSecondaryContainer,
+                                                      ),
                                                     ),
-                                                    child: const Icon(
-                                                      Icons.add,
-                                                      size: 20,
-                                                      color: AppColors
-                                                          .onSecondaryContainer,
-                                                    ),
+                                                  )
+                                                else
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      InkWell(
+                                                        onTap: () => cartProvider
+                                                            .decrementQuantity(
+                                                                produk.id),
+                                                        child: Container(
+                                                          width: 28,
+                                                          height: 28,
+                                                          decoration: BoxDecoration(
+                                                            color: AppColors
+                                                                .surfaceContainerHigh,
+                                                            shape: BoxShape.circle,
+                                                          ),
+                                                          child: const Icon(
+                                                            Icons.remove,
+                                                            size: 16,
+                                                            color: AppColors
+                                                                .onSurfaceVariant,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets.symmetric(
+                                                                horizontal: 6),
+                                                        child: Text(
+                                                          '$inCartQty',
+                                                          style: const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 13,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      InkWell(
+                                                        onTap: isOutOfStock ||
+                                                                inCartQty >=
+                                                                    produk.stok
+                                                            ? null
+                                                            : () => cartProvider
+                                                                .incrementQuantity(
+                                                                    produk.id),
+                                                        child: Container(
+                                                          width: 28,
+                                                          height: 28,
+                                                          decoration: const BoxDecoration(
+                                                            color: AppColors
+                                                                .primary,
+                                                            shape: BoxShape.circle,
+                                                          ),
+                                                          child: const Icon(
+                                                            Icons.add,
+                                                            size: 16,
+                                                            color: AppColors
+                                                                .onPrimary,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ),
                                               ],
                                             ),
                                           ],
