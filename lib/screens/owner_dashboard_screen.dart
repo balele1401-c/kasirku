@@ -193,7 +193,9 @@ class OwnerDashboardScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 2),
                             Text(
-                              toko?.nama ?? 'Ringkasan performa bisnis Anda',
+                              toko != null && toko.nama.isNotEmpty
+                                  ? toko.nama
+                                  : 'Ringkasan performa bisnis Anda',
                               style: theme.textTheme.bodyMedium?.copyWith(
                                 color: AppColors.onSurfaceVariant,
                               ),
