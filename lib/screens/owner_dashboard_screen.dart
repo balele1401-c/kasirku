@@ -9,11 +9,9 @@ import '../providers/produk_provider.dart';
 import '../providers/toko_provider.dart';
 import '../providers/transaksi_provider.dart';
 import '../utils/app_colors.dart';
-import 'karyawan_list_screen.dart';
 import 'login_screen.dart';
 import 'pengaturan_toko_screen.dart';
 import 'produk_list_screen.dart';
-import 'riwayat_transaksi_screen.dart';
 
 class OwnerDashboardScreen extends StatelessWidget {
   const OwnerDashboardScreen({super.key});
@@ -206,51 +204,7 @@ class OwnerDashboardScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
 
-                    // Quick Nav Bar Action Row
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          _buildQuickActionButton(
-                            context,
-                            label: 'Kelola Produk',
-                            icon: Icons.inventory_2_outlined,
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (_) => const ProdukListScreen()),
-                              );
-                            },
-                          ),
-                          const SizedBox(width: 8),
-                          _buildQuickActionButton(
-                            context,
-                            label: 'Kelola Kasir',
-                            icon: Icons.people_outline,
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (_) => const KaryawanListScreen()),
-                              );
-                            },
-                          ),
-                          const SizedBox(width: 8),
-                          _buildQuickActionButton(
-                            context,
-                            label: 'Riwayat Transaksi',
-                            icon: Icons.history_rounded,
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (_) =>
-                                        const RiwayatTransaksiScreen()),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 20),
+
 
                     // 3 Summary Cards Column/Grid (Stitch Design exact replica)
                     Column(
@@ -548,24 +502,7 @@ class OwnerDashboardScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildQuickActionButton(
-    BuildContext context, {
-    required String label,
-    required IconData icon,
-    required VoidCallback onTap,
-  }) {
-    return OutlinedButton.icon(
-      style: OutlinedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-      ),
-      onPressed: onTap,
-      icon: Icon(icon, size: 18),
-      label: Text(label),
-    );
-  }
+
 
   Widget _buildStitchSummaryCard(
     BuildContext context, {
