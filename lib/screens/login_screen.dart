@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
 import '../utils/app_colors.dart';
-import 'kasir_home_screen.dart';
-import 'owner_dashboard_screen.dart';
+import 'main_navigation_shell.dart';
 import 'register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -38,16 +37,11 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!mounted) return;
 
     if (success) {
-      final karyawan = authProvider.karyawan;
-      if (karyawan != null && karyawan.isOwner) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const OwnerDashboardScreen()),
-        );
-      } else {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const KasirHomeScreen()),
-        );
-      }
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => const MainNavigationShell(initialIndex: 0),
+        ),
+      );
     }
   }
 
