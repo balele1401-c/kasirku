@@ -190,20 +190,27 @@ class _KasirHomeScreenState extends State<KasirHomeScreen> {
                                   cartProvider.items[produk.id]?.quantity ?? 0;
 
                               return Card(
+                                elevation: 0,
+                                color: AppColors.surface,
                                 clipBehavior: Clip.antiAlias,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  side: const BorderSide(
+                                      color: AppColors.surfaceVariant, width: 1),
+                                ),
                                 child: InkWell(
                                   onTap: isOutOfStock
                                       ? null
                                       : () => cartProvider.addItem(produk),
-                                  child: Stack(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          // Product Image
-                                          Expanded(
-                                            child: Container(
+                                      // Product Image Container
+                                      Expanded(
+                                        child: Stack(
+                                          children: [
+                                            Container(
                                               width: double.infinity,
                                               color: AppColors.surfaceContainerHigh,
                                               child: produk.fotoUrl != null &&
@@ -211,85 +218,109 @@ class _KasirHomeScreenState extends State<KasirHomeScreen> {
                                                   ? Image.network(
                                                       produk.fotoUrl!,
                                                       fit: BoxFit.cover,
+                                                      errorBuilder: (context, error, stackTrace) =>
+                                                          const Icon(
+                                                        Icons.fastfood_rounded,
+                                                        size: 40,
+                                                        color: AppColors.outline,
+                                                      ),
                                                     )
-                                                  : const Icon(
-                                                      Icons.fastfood_rounded,
-                                                      size: 40,
-                                                      color: AppColors.outline,
+                                                  : const Center(
+                                                      child: Icon(
+                                                        Icons.fastfood_rounded,
+                                                        size: 40,
+                                                        color: AppColors.outlineVariant,
+                                                      ),
                                                     ),
                                             ),
-                                          ),
-
-                                          // Product Info
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  produk.nama,
-                                                  maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,
-                                                  style: theme.textTheme.labelLarge
-                                                      ?.copyWith(
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                const SizedBox(height: 2),
-                                                Text(
-                                                  currencyFormatter
-                                                      .format(produk.hargaJual),
-                                                  style: theme.textTheme.bodyMedium
-                                                      ?.copyWith(
+                                            if (inCartQty > 0)
+                                              Positioned(
+                                                top: 6,
+                                                right: 6,
+                                                child: Container(
+                                                  padding: const EdgeInsets.symmetric(
+                                                      horizontal: 8, vertical: 4),
+                                                  decoration: BoxDecoration(
                                                     color: AppColors.primary,
-                                                    fontWeight: FontWeight.bold,
+                                                    borderRadius:
+                                                        BorderRadius.circular(12),
+                                                  ),
+                                                  child: Text(
+                                                    '$inCartQty',
+                                                    style: const TextStyle(
+                                                      color: AppColors.onPrimary,
+                                                      fontSize: 11,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
                                                   ),
                                                 ),
-                                                const SizedBox(height: 4),
-                                                Text(
-                                                  isOutOfStock
-                                                      ? 'Stok Habis'
-                                                      : 'Stok: ${produk.stok}',
-                                                  style: TextStyle(
-                                                    color: isOutOfStock
-                                                        ? AppColors.error
-                                                        : AppColors
-                                                            .onSurfaceVariant,
-                                                    fontSize: 11,
-                                                    fontWeight: isOutOfStock
-                                                        ? FontWeight.bold
-                                                        : FontWeight.normal,
+                                              ),
+                                          ],
+                                        ),
+                                      ),
+
+                                      // Product Info & Add Button
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              produk.nama,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: theme.textTheme.bodyMedium
+                                                  ?.copyWith(
+                                                fontWeight: FontWeight.w600,
+                                                color: AppColors.onSurface,
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 6),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    currencyFormatter
+                                                        .format(produk.hargaJual),
+                                                    style: theme.textTheme.labelLarge
+                                                        ?.copyWith(
+                                                      color: AppColors.primary,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: isOutOfStock
+                                                      ? null
+                                                      : () => cartProvider
+                                                          .addItem(produk),
+                                                  child: Container(
+                                                    width: 32,
+                                                    height: 32,
+                                                    decoration: const BoxDecoration(
+                                                      color: AppColors
+                                                          .secondaryContainer,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    child: const Icon(
+                                                      Icons.add,
+                                                      size: 20,
+                                                      color: AppColors
+                                                          .onSecondaryContainer,
+                                                    ),
                                                   ),
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                        ],
-                                      ),
-
-                                      // In-cart Quantity Badge
-                                      if (inCartQty > 0)
-                                        Positioned(
-                                          top: 8,
-                                          right: 8,
-                                          child: Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 8, vertical: 4),
-                                            decoration: const BoxDecoration(
-                                              color: AppColors.primary,
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: Text(
-                                              '$inCartQty',
-                                              style: const TextStyle(
-                                                color: AppColors.onPrimary,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ),
+                                          ],
                                         ),
+                                      ),
                                     ],
                                   ),
                                 ),

@@ -123,7 +123,8 @@ class CartProvider with ChangeNotifier {
 
     try {
       await _firestore.runTransaction((transaction) async {
-        // 1. Verify and deduct stock for all items
+        // 1. Read Phase: Perform all reads first (MUST be done before any writes in Firestore)
+        final Map<String, DocumentSnapshot<Map<String, dynamic>>> produkSnapshots = {};
         for (var item in cartItemList) {
           final produkRef = _firestore
               .collection('toko')
@@ -132,23 +133,39 @@ class CartProvider with ChangeNotifier {
               .doc(item.produk.id);
 
           final produkSnapshot = await transaction.get(produkRef);
+          produkSnapshots[item.produk.id] = produkSnapshot;
+        }
 
-          if (!produkSnapshot.exists) {
+        // 2. Validate Phase: Check stock validity for all items
+        for (var item in cartItemList) {
+          final snapshot = produkSnapshots[item.produk.id];
+          if (snapshot == null || !snapshot.exists) {
             throw Exception('Produk ${item.produk.nama} tidak ditemukan.');
           }
 
-          final currentStok = (produkSnapshot.data()?['stok'] ?? 0) as int;
+          final currentStok = (snapshot.data()?['stok'] ?? 0) as int;
           if (currentStok < item.quantity) {
             throw Exception(
                 'Stok ${item.produk.nama} tidak mencukupi (sisa: $currentStok).');
           }
+        }
+
+        // 3. Write Phase: Perform all writes (updates & sets) after all reads are complete
+        for (var item in cartItemList) {
+          final produkRef = _firestore
+              .collection('toko')
+              .doc(tokoId)
+              .collection('produk')
+              .doc(item.produk.id);
+          final snapshot = produkSnapshots[item.produk.id]!;
+          final currentStok = (snapshot.data()?['stok'] ?? 0) as int;
 
           transaction.update(produkRef, {
             'stok': currentStok - item.quantity,
           });
         }
 
-        // 2. Create Transaksi Document
+        // 4. Write Transaksi Document
         final newTransaksi = TransaksiModel(
           id: transaksiRef.id,
           items: transaksiItems,
@@ -177,7 +194,12 @@ class CartProvider with ChangeNotifier {
       _isProcessingTransaction = false;
       notifyListeners();
       return createdTransaksi;
-    } catch (e) {
+    } catch (e, stack) {
+      debugPrint('================ DETAIL TRANSACTION ERROR ================');
+      debugPrint('ERROR: $e');
+      debugPrint('STACK: $stack');
+      debugPrint('==========================================================');
+
       _isProcessingTransaction = false;
       String msg = e.toString();
       if (msg.contains('Exception: ')) {
