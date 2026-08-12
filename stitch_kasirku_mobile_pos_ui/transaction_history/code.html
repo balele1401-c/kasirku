@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KasirKu - Riwayat Transaksi</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<!-- Tailwind CSS with custom config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#96f3e1",
+                        "tertiary-fixed": "#62fae3",
+                        "secondary-fixed-dim": "#7ad7c6",
+                        "on-secondary-fixed-variant": "#005046",
+                        "primary-container": "#008378",
+                        "secondary": "#006b5e",
+                        "outline": "#6d7a77",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#d9dadb",
+                        "tertiary": "#00685c",
+                        "on-tertiary-fixed": "#00201c",
+                        "on-primary-fixed": "#00201d",
+                        "inverse-on-surface": "#f0f1f2",
+                        "primary": "#00685f",
+                        "background": "#f8f9fa",
+                        "secondary-container": "#96f3e1",
+                        "tertiary-fixed-dim": "#3cddc7",
+                        "surface": "#f8f9fa",
+                        "on-background": "#191c1d",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#00201b",
+                        "on-surface-variant": "#3d4947",
+                        "primary-fixed": "#89f5e7",
+                        "inverse-surface": "#2e3132",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#006a61",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#6bd8cb",
+                        "tertiary-container": "#008375",
+                        "surface-variant": "#e1e3e4",
+                        "on-tertiary-container": "#f4fffb",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-container": "#edeeef",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "on-secondary-container": "#007164",
+                        "surface-bright": "#f8f9fa",
+                        "outline-variant": "#bcc9c6",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#f4fffc",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-surface": "#191c1d",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#005047",
+                        "surface-container-low": "#f3f4f5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "margin-tablet": "24px",
+                        "base": "8px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "26px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased md:max-w-md md:mx-auto md:shadow-lg md:min-h-screen relative overflow-x-hidden">
+<!-- TopAppBar from JSON -->
+<header class="w-full top-0 sticky border-b border-surface-variant dark:border-outline-variant bg-surface dark:bg-surface-dim flex items-center justify-between px-4 h-16 z-40">
+<button class="p-2 -ml-2 text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors active:opacity-80 active:scale-95 duration-150 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<div class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary dark:text-primary-fixed-dim truncate">
+            KasirKu
+        </div>
+<button class="p-2 -mr-2 text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors active:opacity-80 active:scale-95 duration-150 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="w-full pb-[100px] flex flex-col">
+<!-- Page Context Header (Since JSON TopAppBar is branded) -->
+<div class="px-margin-mobile pt-lg pb-md">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Riwayat Transaksi</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Pantau aktivitas penjualan harian Anda.</p>
+</div>
+<!-- Filter Chips (Scrollable horizontally) -->
+<div class="w-full overflow-x-auto no-scrollbar px-margin-mobile pb-md flex gap-sm items-center">
+<!-- Active Chip -->
+<button class="whitespace-nowrap px-4 py-2 rounded-lg bg-primary text-on-primary font-label-lg text-label-lg transition-transform active:scale-95">
+                Hari Ini
+            </button>
+<!-- Inactive Chips -->
+<button class="whitespace-nowrap px-4 py-2 rounded-lg bg-surface border border-surface-variant text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container-low transition-colors active:scale-95">
+                Minggu Ini
+            </button>
+<button class="whitespace-nowrap px-4 py-2 rounded-lg bg-surface border border-surface-variant text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container-low transition-colors active:scale-95">
+                Bulan Ini
+            </button>
+</div>
+<!-- Transaction List Group: Hari Ini -->
+<div class="flex flex-col px-margin-mobile mt-sm">
+<h2 class="font-label-lg text-label-lg text-on-surface-variant mb-sm px-1">Hari Ini, 25 Okt 2023</h2>
+<div class="flex flex-col gap-sm">
+<!-- Transaction Card 1 -->
+<div class="bg-surface border border-surface-variant rounded-xl p-md flex flex-col gap-sm active:bg-surface-container-low transition-colors cursor-pointer relative overflow-hidden group">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface">14:35 - Kasir: Andi</span>
+<span class="font-body-md text-body-md text-on-surface-variant mt-xs">3 Item</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-title-lg text-title-lg text-primary">Rp 45.000</span>
+</div>
+</div>
+<!-- Indicator/Affordance -->
+<div class="absolute right-md top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Transaction Card 2 -->
+<div class="bg-surface border border-surface-variant rounded-xl p-md flex flex-col gap-sm active:bg-surface-container-low transition-colors cursor-pointer relative overflow-hidden group">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface">12:15 - Kasir: Budi</span>
+<span class="font-body-md text-body-md text-on-surface-variant mt-xs">1 Item</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-title-lg text-title-lg text-primary">Rp 15.000</span>
+</div>
+</div>
+<div class="absolute right-md top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Transaction List Group: Kemarin (Example for visual volume) -->
+<div class="flex flex-col px-margin-mobile mt-lg">
+<h2 class="font-label-lg text-label-lg text-on-surface-variant mb-sm px-1">Kemarin, 24 Okt 2023</h2>
+<div class="flex flex-col gap-sm">
+<!-- Transaction Card 3 -->
+<div class="bg-surface border border-surface-variant rounded-xl p-md flex flex-col gap-sm active:bg-surface-container-low transition-colors cursor-pointer relative overflow-hidden group">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface">19:40 - Kasir: Andi</span>
+<span class="font-body-md text-body-md text-on-surface-variant mt-xs">5 Item</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-title-lg text-title-lg text-primary">Rp 120.500</span>
+</div>
+</div>
+<div class="absolute right-md top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar from JSON -->
+<nav class="fixed bottom-0 w-full z-50 border-t border-surface-variant dark:border-outline-variant bg-surface-container dark:bg-surface-container-highest flex justify-around items-center h-20 pb-safe px-2 md:max-w-md md:left-1/2 md:-translate-x-1/2">
+<!-- Inactive: Kasir -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-all active:scale-90 duration-200 rounded-lg">
+<span class="material-symbols-outlined mb-1" data-icon="point_of_sale">point_of_sale</span>
+<span class="font-label-md text-label-md">Kasir</span>
+</button>
+<!-- Active: Riwayat -->
+<button class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-full px-5 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined mb-1" data-icon="history" data-weight="fill" style="font-variation-settings: 'FILL' 1;">history</span>
+<span class="font-label-md text-label-md">Riwayat</span>
+</button>
+<!-- Inactive: Produk -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-all active:scale-90 duration-200 rounded-lg">
+<span class="material-symbols-outlined mb-1" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-md text-label-md">Produk</span>
+</button>
+<!-- Inactive: Dashboard -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-all active:scale-90 duration-200 rounded-lg">
+<span class="material-symbols-outlined mb-1" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</button>
+</nav>
+</body></html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KasirKu - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#96f3e1",
+                        "tertiary-fixed": "#62fae3",
+                        "secondary-fixed-dim": "#7ad7c6",
+                        "on-secondary-fixed-variant": "#005046",
+                        "primary-container": "#008378",
+                        "secondary": "#006b5e",
+                        "outline": "#6d7a77",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#d9dadb",
+                        "tertiary": "#00685c",
+                        "on-tertiary-fixed": "#00201c",
+                        "on-primary-fixed": "#00201d",
+                        "inverse-on-surface": "#f0f1f2",
+                        "primary": "#00685f",
+                        "background": "#f8f9fa",
+                        "secondary-container": "#96f3e1",
+                        "tertiary-fixed-dim": "#3cddc7",
+                        "surface": "#f8f9fa",
+                        "on-background": "#191c1d",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#00201b",
+                        "on-surface-variant": "#3d4947",
+                        "primary-fixed": "#89f5e7",
+                        "inverse-surface": "#2e3132",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#006a61",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#6bd8cb",
+                        "tertiary-container": "#008375",
+                        "surface-variant": "#e1e3e4",
+                        "on-tertiary-container": "#f4fffb",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-container": "#edeeef",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "on-secondary-container": "#007164",
+                        "surface-bright": "#f8f9fa",
+                        "outline-variant": "#bcc9c6",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#f4fffc",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-surface": "#191c1d",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#005047",
+                        "surface-container-low": "#f3f4f5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "margin-tablet": "24px",
+                        "base": "8px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "26px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for clean look */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background-color: #bcc9c6; border-radius: 20px; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased overflow-hidden">
+<div class="flex h-screen w-full">
+<!-- Sidebar Navigation Drawer (Hidden on Mobile, Visible on md) -->
+<aside class="hidden md:flex flex-col bg-surface border-r border-surface-variant w-80 h-full py-4 shadow-lg shrink-0 z-50">
+<!-- Header -->
+<div class="px-6 mb-8 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-title-lg font-bold">
+                    KU
+                </div>
+<div>
+<h2 class="font-title-lg text-title-lg text-on-surface">KasirKu UMKM</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Toko Sembako Jaya</p>
+<span class="inline-block mt-1 font-label-md text-label-md text-secondary bg-secondary-container px-2 py-0.5 rounded-full">Premium Plan</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 flex flex-col gap-2">
+<a class="flex items-center gap-4 text-on-surface-variant px-6 py-3 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">store</span>
+<span class="font-label-lg text-label-lg">Profil Toko</span>
+</a>
+<a class="flex items-center gap-4 bg-secondary-container text-on-secondary-container rounded-full mx-3 px-6 py-3 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant px-6 py-3 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-lg text-label-lg">Laporan Penjualan</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant px-6 py-3 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-lg text-label-lg">Pengaturan</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant px-6 py-3 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-lg text-label-lg">Bantuan</span>
+</a>
+</nav>
+<div class="mt-auto px-3">
+<a class="flex items-center gap-4 text-error px-6 py-3 hover:bg-error-container rounded-full transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-lg text-label-lg">Keluar</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-surface border-b border-surface-variant flex items-center justify-between px-4 h-16 z-40 shrink-0">
+<button class="md:hidden p-2 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full active:opacity-80 active:scale-95 duration-150">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="flex-1 flex justify-center md:justify-start md:pl-4">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">KasirKu</h1>
+</div>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full active:opacity-80 active:scale-95 duration-150">
+<span class="material-symbols-outlined">search</span>
+</button>
+</header>
+<!-- Dashboard Canvas -->
+<div class="flex-1 overflow-y-auto p-margin-mobile md:p-margin-tablet pb-24 md:pb-8">
+<!-- Page Title -->
+<div class="mb-lg">
+<h2 class="font-headline-lg text-headline-lg text-on-background">Dashboard Overview</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Ringkasan performa bisnis Anda hari ini.</p>
+</div>
+<!-- Summary Row (3 Cards) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md mb-xl">
+<!-- Card 1: Penjualan -->
+<div class="bg-surface border border-surface-variant rounded-xl p-md flex flex-col justify-between hover:shadow-lg transition-shadow duration-200">
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-lg text-label-lg text-on-surface-variant">Penjualan Hari Ini</span>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">payments</span>
+</div>
+</div>
+<div>
+<h3 class="font-display-lg text-display-lg text-on-background mb-1">Rp 1.2M</h3>
+<div class="flex items-center gap-1 text-primary font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span>+15% dari kemarin</span>
+</div>
+</div>
+</div>
+<!-- Card 2: Transaksi -->
+<div class="bg-surface border border-surface-variant rounded-xl p-md flex flex-col justify-between hover:shadow-lg transition-shadow duration-200">
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-lg text-label-lg text-on-surface-variant">Total Transaksi</span>
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">receipt_long</span>
+</div>
+</div>
+<div>
+<h3 class="font-display-lg text-display-lg text-on-background mb-1">45</h3>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span>Diperbarui baru saja</span>
+</div>
+</div>
+</div>
+<!-- Card 3: Terlaris -->
+<div class="bg-surface border border-surface-variant rounded-xl p-md flex flex-col justify-between hover:shadow-lg transition-shadow duration-200">
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-lg text-label-lg text-on-surface-variant">Produk Terlaris</span>
+<div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined">star</span>
+</div>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-background mb-1 truncate">Kopi Susu Gula Aren</h3>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-md text-label-md">
+<span>24 Terjual hari ini</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout for Chart and List -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+<!-- Middle Section: Bar Chart (Spans 2 columns on large screens) -->
+<div class="bg-surface border border-surface-variant rounded-xl p-md lg:col-span-2 flex flex-col">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-title-lg text-title-lg text-on-background">Tren Penjualan (Senin - Minggu)</h3>
+<button class="text-primary hover:bg-primary-container hover:text-on-primary-container px-3 py-1 rounded-full transition-colors font-label-md text-label-md flex items-center gap-1">
+<span>Minggu Ini</span>
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+</div>
+<!-- Simple CSS Bar Chart Representation -->
+<div class="flex-1 flex items-end justify-between gap-2 md:gap-4 mt-auto pt-8 h-48 border-b border-surface-variant">
+<!-- Mon -->
+<div class="flex flex-col items-center gap-2 flex-1 group">
+<div class="w-full bg-surface-container-highest rounded-t-sm h-[40%] group-hover:bg-primary transition-colors relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface font-label-md text-label-md px-2 py-1 rounded transition-opacity whitespace-nowrap">Rp 400k</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Sen</span>
+</div>
+<!-- Tue -->
+<div class="flex flex-col items-center gap-2 flex-1 group">
+<div class="w-full bg-surface-container-highest rounded-t-sm h-[60%] group-hover:bg-primary transition-colors relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface font-label-md text-label-md px-2 py-1 rounded transition-opacity whitespace-nowrap">Rp 600k</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Sel</span>
+</div>
+<!-- Wed -->
+<div class="flex flex-col items-center gap-2 flex-1 group">
+<div class="w-full bg-surface-container-highest rounded-t-sm h-[45%] group-hover:bg-primary transition-colors relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface font-label-md text-label-md px-2 py-1 rounded transition-opacity whitespace-nowrap">Rp 450k</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Rab</span>
+</div>
+<!-- Thu -->
+<div class="flex flex-col items-center gap-2 flex-1 group">
+<div class="w-full bg-surface-container-highest rounded-t-sm h-[75%] group-hover:bg-primary transition-colors relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface font-label-md text-label-md px-2 py-1 rounded transition-opacity whitespace-nowrap">Rp 750k</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Kam</span>
+</div>
+<!-- Fri -->
+<div class="flex flex-col items-center gap-2 flex-1 group">
+<div class="w-full bg-primary rounded-t-sm h-[100%] relative"> <!-- Highlighted -->
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface font-label-md text-label-md px-2 py-1 rounded whitespace-nowrap">Rp 1.2M</div>
+</div>
+<span class="font-label-md text-label-md text-on-background font-bold">Jum</span>
+</div>
+<!-- Sat -->
+<div class="flex flex-col items-center gap-2 flex-1 group">
+<div class="w-full bg-surface-container-highest rounded-t-sm h-[85%] group-hover:bg-primary transition-colors relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface font-label-md text-label-md px-2 py-1 rounded transition-opacity whitespace-nowrap">Rp 850k</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Sab</span>
+</div>
+<!-- Sun -->
+<div class="flex flex-col items-center gap-2 flex-1 group">
+<div class="w-full bg-surface-container-highest rounded-t-sm h-[50%] group-hover:bg-primary transition-colors relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface font-label-md text-label-md px-2 py-1 rounded transition-opacity whitespace-nowrap">Rp 500k</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Min</span>
+</div>
+</div>
+</div>
+<!-- Bottom Section: Peringatan Stok Rendah -->
+<div class="bg-surface border border-surface-variant rounded-xl p-md flex flex-col">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-title-lg text-title-lg text-on-background">Peringatan Stok Rendah</h3>
+<span class="material-symbols-outlined text-error">warning</span>
+</div>
+<ul class="flex flex-col gap-4">
+<!-- Item 1 -->
+<li class="flex items-center justify-between p-3 rounded-lg border border-outline-variant hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 bg-surface-container-high rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">opacity</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-background">Minyak Goreng 1L</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Kategori: Sembako</p>
+</div>
+</div>
+<div class="bg-error-container text-on-error-container px-3 py-1 rounded-full font-label-md text-label-md font-bold">
+                                    Stok: 2
+                                </div>
+</li>
+<!-- Item 2 -->
+<li class="flex items-center justify-between p-3 rounded-lg border border-outline-variant hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 bg-surface-container-high rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">egg</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-background">Telur Ayam Kampung</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Kategori: Sembako</p>
+</div>
+</div>
+<div class="bg-error-container text-on-error-container px-3 py-1 rounded-full font-label-md text-label-md font-bold">
+                                    Stok: 5
+                                </div>
+</li>
+<!-- Item 3 -->
+<li class="flex items-center justify-between p-3 rounded-lg border border-outline-variant hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 bg-surface-container-high rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">local_cafe</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-background">Gula Aren Cair</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Kategori: Minuman</p>
+</div>
+</div>
+<div class="bg-error-container text-on-error-container px-3 py-1 rounded-full font-label-md text-label-md font-bold">
+                                    Stok: 1
+                                </div>
+</li>
+</ul>
+<button class="mt-auto pt-4 text-primary font-label-lg text-label-lg hover:underline w-full text-center">
+                            Lihat Semua Stok
+                        </button>
+</div>
+</div>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface-container border-t border-surface-variant flex justify-around items-center h-20 pb-safe px-2 font-label-md text-label-md">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:bg-surface-container-high transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined mb-1">point_of_sale</span>
+<span>Kasir</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:bg-surface-container-high transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined mb-1">history</span>
+<span>Riwayat</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:bg-surface-container-high transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined mb-1">inventory_2</span>
+<span>Produk</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1 hover:bg-surface-container-high transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span>Dashboard</span>
+</a>
+</nav>
+</main>
+</div>
+</body></html>

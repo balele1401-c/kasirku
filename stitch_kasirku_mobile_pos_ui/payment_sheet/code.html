@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pilih Pembayaran - KasirKu</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#96f3e1",
+                        "tertiary-fixed": "#62fae3",
+                        "secondary-fixed-dim": "#7ad7c6",
+                        "on-secondary-fixed-variant": "#005046",
+                        "primary-container": "#008378",
+                        "secondary": "#006b5e",
+                        "outline": "#6d7a77",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#d9dadb",
+                        "tertiary": "#00685c",
+                        "on-tertiary-fixed": "#00201c",
+                        "on-primary-fixed": "#00201d",
+                        "inverse-on-surface": "#f0f1f2",
+                        "primary": "#00685f",
+                        "background": "#f8f9fa",
+                        "secondary-container": "#96f3e1",
+                        "tertiary-fixed-dim": "#3cddc7",
+                        "surface": "#f8f9fa",
+                        "on-background": "#191c1d",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#00201b",
+                        "on-surface-variant": "#3d4947",
+                        "primary-fixed": "#89f5e7",
+                        "inverse-surface": "#2e3132",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#006a61",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#6bd8cb",
+                        "tertiary-container": "#008375",
+                        "surface-variant": "#e1e3e4",
+                        "on-tertiary-container": "#f4fffb",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-container": "#edeeef",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "on-secondary-container": "#007164",
+                        "surface-bright": "#f8f9fa",
+                        "outline-variant": "#bcc9c6",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#f4fffc",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-surface": "#191c1d",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#005047",
+                        "surface-container-low": "#f3f4f5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "margin-tablet": "24px",
+                        "base": "8px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "26px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom modal animation */
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .bottom-sheet {
+            animation: slideUp 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        .backdrop {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md h-screen w-screen overflow-hidden flex flex-col antialiased">
+<!-- Mock Background App Content (to show overlay context) -->
+<div class="flex-1 flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface w-full top-0 sticky border-b border-surface-variant flat no shadows flex items-center justify-between px-4 h-16 w-full z-10">
+<button class="text-on-surface-variant hover:bg-surface-container-low active:opacity-80 active:scale-95 transition-transform duration-150 p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">KasirKu</h1>
+<button class="text-on-surface-variant hover:bg-surface-container-low active:opacity-80 active:scale-95 transition-transform duration-150 p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</header>
+<main class="flex-1 p-margin-mobile overflow-y-auto">
+<div class="h-full flex items-center justify-center text-on-surface-variant opacity-50">
+                Latar belakang aplikasi kasir
+            </div>
+</main>
+</div>
+<!-- Backdrop Overlay -->
+<div class="backdrop fixed inset-0 bg-on-background/40 z-40 backdrop-blur-sm" id="payment-backdrop"></div>
+<!-- Bottom Sheet Modal -->
+<div class="bottom-sheet fixed bottom-0 left-0 right-0 w-full bg-surface-container-lowest rounded-t-3xl shadow-[0_-8px_32px_rgba(0,0,0,0.1)] z-50 flex flex-col max-h-[90vh] pb-safe" id="payment-sheet">
+<!-- Handle for dragging (visual only) -->
+<div class="w-full flex justify-center pt-4 pb-2">
+<div class="w-12 h-1.5 bg-outline-variant rounded-full"></div>
+</div>
+<!-- Header -->
+<div class="px-margin-mobile pb-4 flex justify-between items-center border-b border-surface-variant">
+<h2 class="font-title-lg text-title-lg text-on-surface">Pilih Pembayaran</h2>
+<button class="text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<!-- Content Area (Scrollable if needed) -->
+<div class="flex-1 overflow-y-auto p-margin-mobile flex flex-col gap-lg">
+<!-- Payment Method Chips -->
+<div>
+<label class="font-label-md text-label-md text-on-surface-variant block mb-sm">Metode Pembayaran</label>
+<div class="flex gap-sm overflow-x-auto pb-2 scrollbar-hide">
+<button class="whitespace-nowrap px-4 py-2 rounded-full font-label-lg text-label-lg bg-primary-container text-on-primary-container border border-primary transition-colors flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+                        Tunai
+                    </button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full font-label-lg text-label-lg bg-surface text-on-surface border border-outline-variant hover:bg-surface-container-low transition-colors flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">account_balance</span>
+                        Transfer Bank
+                    </button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full font-label-lg text-label-lg bg-surface text-on-surface border border-outline-variant hover:bg-surface-container-low transition-colors flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">qr_code_scanner</span>
+                        QRIS
+                    </button>
+</div>
+</div>
+<!-- Input Amount Area -->
+<div class="bg-surface-container-low rounded-xl p-md flex flex-col gap-md">
+<!-- Total Tagihan -->
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-body-md text-body-md">Total Tagihan</span>
+<span class="font-title-lg text-title-lg text-on-surface">Rp 45.000</span>
+</div>
+<!-- Input Diterima -->
+<div class="relative">
+<label class="font-label-md text-label-md text-on-surface-variant absolute -top-2 left-3 bg-surface-container-low px-1">Uang Tunai Diterima</label>
+<div class="flex items-center border-2 border-primary rounded-lg bg-surface-container-lowest px-4 py-3 focus-within:ring-2 focus-within:ring-primary/20">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface-variant mr-2">Rp</span>
+<input class="w-full bg-transparent border-none p-0 font-headline-lg-mobile text-headline-lg-mobile text-on-surface focus:ring-0 text-right outline-none" readonly="" type="text" value="50.000"/>
+</div>
+</div>
+<!-- Kembalian Display -->
+<div class="flex justify-between items-center bg-secondary-container/30 p-sm rounded-lg">
+<span class="font-body-md text-body-md text-on-surface-variant">Kembalian</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-tertiary">Rp 5.000</span>
+</div>
+</div>
+<!-- Quick Amount Chips / Numpad Area -->
+<div>
+<label class="font-label-md text-label-md text-on-surface-variant block mb-sm">Pilih Cepat</label>
+<div class="grid grid-cols-3 gap-sm">
+<button class="py-3 rounded-lg bg-surface-container text-on-surface font-label-lg text-label-lg hover:bg-surface-container-high active:scale-95 transition-all">Rp 45.000</button>
+<button class="py-3 rounded-lg bg-primary-container text-on-primary-container font-label-lg text-label-lg shadow-sm border border-primary/20 active:scale-95 transition-all">Rp 50.000</button>
+<button class="py-3 rounded-lg bg-surface-container text-on-surface font-label-lg text-label-lg hover:bg-surface-container-high active:scale-95 transition-all">Rp 100.000</button>
+</div>
+</div>
+</div>
+<!-- Footer Action -->
+<div class="p-margin-mobile pt-sm border-t border-surface-variant bg-surface-container-lowest mt-auto">
+<button class="w-full py-4 rounded-xl bg-primary text-on-primary font-title-lg text-title-lg flex items-center justify-center gap-sm hover:bg-primary/90 active:bg-primary/80 active:scale-[0.98] transition-all shadow-md">
+<span class="material-symbols-outlined" data-weight="fill">check_circle</span>
+                Konfirmasi Bayar
+            </button>
+</div>
+</div>
+<script>
+        // Simple script to handle backdrop click to close (visual demo)
+        document.getElementById('payment-backdrop').addEventListener('click', function() {
+            const sheet = document.getElementById('payment-sheet');
+            sheet.style.animation = 'slideUp 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) reverse forwards';
+            this.style.animation = 'fadeIn 0.3s ease-out reverse forwards';
+            
+            setTimeout(() => {
+                sheet.style.display = 'none';
+                this.style.display = 'none';
+            }, 300);
+        });
+    </script>
+</body></html>

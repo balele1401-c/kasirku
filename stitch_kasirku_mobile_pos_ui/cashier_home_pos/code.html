@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KasirKu - POS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed": "#96f3e1",
+                      "tertiary-fixed": "#62fae3",
+                      "secondary-fixed-dim": "#7ad7c6",
+                      "on-secondary-fixed-variant": "#005046",
+                      "primary-container": "#008378",
+                      "secondary": "#006b5e",
+                      "outline": "#6d7a77",
+                      "error-container": "#ffdad6",
+                      "surface-dim": "#d9dadb",
+                      "tertiary": "#00685c",
+                      "on-tertiary-fixed": "#00201c",
+                      "on-primary-fixed": "#00201d",
+                      "inverse-on-surface": "#f0f1f2",
+                      "primary": "#00685f",
+                      "background": "#f8f9fa",
+                      "secondary-container": "#96f3e1",
+                      "tertiary-fixed-dim": "#3cddc7",
+                      "surface": "#f8f9fa",
+                      "on-background": "#191c1d",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed": "#00201b",
+                      "on-surface-variant": "#3d4947",
+                      "primary-fixed": "#89f5e7",
+                      "inverse-surface": "#2e3132",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "surface-tint": "#006a61",
+                      "error": "#ba1a1a",
+                      "inverse-primary": "#6bd8cb",
+                      "tertiary-container": "#008375",
+                      "surface-variant": "#e1e3e4",
+                      "on-tertiary-container": "#f4fffb",
+                      "surface-container-high": "#e7e8e9",
+                      "surface-container": "#edeeef",
+                      "on-error": "#ffffff",
+                      "primary-fixed-dim": "#6bd8cb",
+                      "on-secondary-container": "#007164",
+                      "surface-bright": "#f8f9fa",
+                      "outline-variant": "#bcc9c6",
+                      "on-primary-fixed-variant": "#005049",
+                      "on-error-container": "#93000a",
+                      "on-primary-container": "#f4fffc",
+                      "surface-container-highest": "#e1e3e4",
+                      "on-surface": "#191c1d",
+                      "on-primary": "#ffffff",
+                      "on-tertiary-fixed-variant": "#005047",
+                      "surface-container-low": "#f3f4f5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "md": "16px",
+                      "xs": "4px",
+                      "lg": "24px",
+                      "gutter": "16px",
+                      "xl": "32px",
+                      "sm": "8px",
+                      "margin-tablet": "24px",
+                      "base": "8px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "body-md": ["Inter"],
+                      "label-md": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "label-lg": ["Inter"],
+                      "title-lg": ["Inter"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                      "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Hide scrollbar for category chips */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Ensure specific icon weight if needed, though default is fine for MD3 */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased font-body-md h-screen overflow-hidden flex flex-col">
+<!-- TopAppBar (from JSON) -->
+<header class="bg-surface w-full top-0 sticky border-b border-surface-variant flex items-center justify-between px-4 h-16 w-full z-40">
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full p-2 active:opacity-80 active:scale-95 transition-transform duration-150 flex items-center justify-center">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">KasirKu</h1>
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full p-2 active:opacity-80 active:scale-95 transition-transform duration-150 flex items-center justify-center">
+<span class="material-symbols-outlined">search</span>
+</button>
+</header>
+<!-- Main Content Area (Scrollable) -->
+<main class="flex-1 overflow-y-auto pb-[180px]">
+<!-- Category Filter Chips -->
+<section class="flex overflow-x-auto px-4 py-4 gap-2 no-scrollbar bg-surface border-b border-surface-variant sticky top-0 z-30">
+<button class="bg-primary text-on-primary rounded-full px-5 py-2 font-label-lg text-label-lg whitespace-nowrap active:opacity-80 transition-opacity">
+                Semua
+            </button>
+<button class="bg-surface border border-outline-variant text-on-surface-variant rounded-full px-5 py-2 font-label-lg text-label-lg whitespace-nowrap hover:bg-surface-container-low transition-colors active:bg-surface-container-high">
+                Makanan
+            </button>
+<button class="bg-surface border border-outline-variant text-on-surface-variant rounded-full px-5 py-2 font-label-lg text-label-lg whitespace-nowrap hover:bg-surface-container-low transition-colors active:bg-surface-container-high">
+                Minuman
+            </button>
+<button class="bg-surface border border-outline-variant text-on-surface-variant rounded-full px-5 py-2 font-label-lg text-label-lg whitespace-nowrap hover:bg-surface-container-low transition-colors active:bg-surface-container-high">
+                Snack
+            </button>
+<button class="bg-surface border border-outline-variant text-on-surface-variant rounded-full px-5 py-2 font-label-lg text-label-lg whitespace-nowrap hover:bg-surface-container-low transition-colors active:bg-surface-container-high">
+                Lainnya
+            </button>
+</section>
+<!-- Product Grid -->
+<section class="px-4 py-4 grid grid-cols-2 gap-4">
+<!-- Product Card 1 -->
+<article class="bg-surface border border-surface-variant rounded-xl overflow-hidden flex flex-col active:shadow-md transition-shadow">
+<div class="aspect-square bg-surface-container-high w-full relative">
+<img class="w-full h-full object-cover" data-alt="A top-down, brightly lit, high-resolution photograph of an iced coffee with milk and palm sugar in a clear plastic cup. The cup sits on a pristine, minimalist white surface, creating a clean, modern aesthetic typical of an efficient retail environment. The lighting is soft and even, highlighting the layers of coffee and milk. The overall mood is fresh, inviting, and professional, aligning with a streamlined point-of-sale interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0L3cPOBLlAO4ffleESxPV3ux3pA_44hr2M7AyZkjypkpWEnz_GNwamnwy3mG4lhCrxUOfiHD0ym4bFk5vgV-KlP-3z0Ollme4uGKkwALti5HhVQP3XGGkyLBKd2MEnjG575UYy-7glylyUj-r4tkGXC12faqrt1mD4RrooMJBeyC7nfM7l5akqfVudORoRuXxiewcYKRSw6p8ARdy9oZhvWalrWIoEFWN2ZHE1kwY84LMRGHX43yN"/>
+</div>
+<div class="p-3 flex flex-col gap-2 flex-grow justify-between">
+<h3 class="font-body-md text-body-md font-medium text-on-surface leading-tight">Kopi Susu Gula Aren</h3>
+<div class="flex items-center justify-between mt-auto pt-2">
+<span class="font-label-lg text-label-lg font-bold text-primary">Rp 15.000</span>
+<button class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center active:bg-primary active:text-on-primary transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">add</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Product Card 2 -->
+<article class="bg-surface border border-surface-variant rounded-xl overflow-hidden flex flex-col active:shadow-md transition-shadow">
+<div class="aspect-square bg-surface-container-high w-full relative">
+<img class="w-full h-full object-cover" data-alt="A highly detailed, professional food photography shot of a plate of Nasi Goreng (Indonesian fried rice) topped with a sunny-side-up egg. The dish is presented on a clean, modern white ceramic plate resting on a light-colored, minimalist table. The lighting is bright and appetizing, emphasizing the textures of the rice and the glossy yolk of the egg. The aesthetic is clean, corporate, and highly efficient, perfect for a modern POS system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCohdvlXG_lqh17bAPwmTGtx5yETKr8EC2bmg3RrLT89z2iv3WhUEt1JMAO-fNqxeH9Wa5KlWdFhYYJ5ZcQVyJ_wW3b2pxAtcbUwZ4HtJknPZge0MV5kanPzT6qB_b2sHdfaiO1a6mzb0qXzl0IFpOGiLWGhGexweR-dgwvl4njjPxXyp0ikBO3W69hRAE5wXnnYKEBscjNE_XSFX9F_iWoD_TVtTmyQwqabg11xUuLGx9VFFstDpJq"/>
+</div>
+<div class="p-3 flex flex-col gap-2 flex-grow justify-between">
+<h3 class="font-body-md text-body-md font-medium text-on-surface leading-tight">Nasi Goreng Spesial</h3>
+<div class="flex items-center justify-between mt-auto pt-2">
+<span class="font-label-lg text-label-lg font-bold text-primary">Rp 25.000</span>
+<button class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center active:bg-primary active:text-on-primary transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">add</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Product Card 3 -->
+<article class="bg-surface border border-surface-variant rounded-xl overflow-hidden flex flex-col active:shadow-md transition-shadow">
+<div class="aspect-square bg-surface-container-high w-full relative">
+<img class="w-full h-full object-cover" data-alt="A crisp, high-quality image of a tall glass of sweet iced tea (Es Teh Manis) with condensation on the outside. The glass is positioned centrally on a stark, minimalist white background. The ambient lighting is bright and studio-quality, casting a soft, subtle shadow. The rich amber color of the tea contrasts beautifully with the stark white environment, reflecting a polished, modern retail aesthetic designed for quick visual recognition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyhffWv1OjmZLsFLjTtc8Me9S3sQIp0wp6hd6odijuShI483ARvgVXIhjZWZdsEfRP-deOazKdxiuPRFgczwugfcFw47rcuOEiMIHTtFFUKVKpSSGbTTk9Rq9sM60brkRZX1VfI7Jl-bJmopUJGBLKXnjM5uCzyAGQ3xikU82orJvF12-DJsN2Luz2CRTNlonWRvRyw3rVNASBxosPLyc0LUVOUyXlgaa-NTnYoOeAeN-lKUW8FVsx"/>
+</div>
+<div class="p-3 flex flex-col gap-2 flex-grow justify-between">
+<h3 class="font-body-md text-body-md font-medium text-on-surface leading-tight">Es Teh Manis</h3>
+<div class="flex items-center justify-between mt-auto pt-2">
+<span class="font-label-lg text-label-lg font-bold text-primary">Rp 5.000</span>
+<button class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center active:bg-primary active:text-on-primary transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">add</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Product Card 4 -->
+<article class="bg-surface border border-surface-variant rounded-xl overflow-hidden flex flex-col active:shadow-md transition-shadow">
+<div class="aspect-square bg-surface-container-high w-full relative">
+<img class="w-full h-full object-cover" data-alt="A professional, well-lit photograph of crispy fried bananas (Pisang Goreng) arranged neatly on a modern, minimalist white serving tray. The setting is clean and uncluttered, with high-key lighting that emphasizes the golden-brown, crispy texture of the snack. The overall composition is centered and highly structured, fitting perfectly into a clean, modern corporate UI design system intended for rapid transaction processing in a retail setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANSQnSBASLwWCDQenwAXUhioaifJq63YdLfNpQcRGTF3fyIcL-ZfTpv6kxvpQmcNEQKunw_r0FD97sxwY5zQ0I_JPaYGku_e-DEW_yaalCHBQDU6wS7PAOp90cIIg--l7S4DuTl8UI9_2YorTqSD5mnjPrKmyyW_jfJNMtCukVl9MHk2r8w89wnfI69uYCDLhcl-KLltQw5msYpNoO74CRlcJ92kert1b3h5N_FRHhIBRYGIohjH9e"/>
+</div>
+<div class="p-3 flex flex-col gap-2 flex-grow justify-between">
+<h3 class="font-body-md text-body-md font-medium text-on-surface leading-tight">Pisang Goreng Keju</h3>
+<div class="flex items-center justify-between mt-auto pt-2">
+<span class="font-label-lg text-label-lg font-bold text-primary">Rp 12.000</span>
+<button class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center active:bg-primary active:text-on-primary transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">add</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Product Card 5 -->
+<article class="bg-surface border border-surface-variant rounded-xl overflow-hidden flex flex-col active:shadow-md transition-shadow">
+<div class="aspect-square bg-surface-container-high w-full relative flex items-center justify-center bg-surface-container-low">
+<span class="material-symbols-outlined text-outline-variant" style="font-size: 48px; font-variation-settings: 'wght' 200;">fastfood</span>
+</div>
+<div class="p-3 flex flex-col gap-2 flex-grow justify-between">
+<h3 class="font-body-md text-body-md font-medium text-on-surface leading-tight">Kentang Goreng</h3>
+<div class="flex items-center justify-between mt-auto pt-2">
+<span class="font-label-lg text-label-lg font-bold text-primary">Rp 18.000</span>
+<button class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center active:bg-primary active:text-on-primary transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">add</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Product Card 6 -->
+<article class="bg-surface border border-surface-variant rounded-xl overflow-hidden flex flex-col active:shadow-md transition-shadow">
+<div class="aspect-square bg-surface-container-high w-full relative flex items-center justify-center bg-surface-container-low">
+<span class="material-symbols-outlined text-outline-variant" style="font-size: 48px; font-variation-settings: 'wght' 200;">local_cafe</span>
+</div>
+<div class="p-3 flex flex-col gap-2 flex-grow justify-between">
+<h3 class="font-body-md text-body-md font-medium text-on-surface leading-tight">Kopi Hitam</h3>
+<div class="flex items-center justify-between mt-auto pt-2">
+<span class="font-label-lg text-label-lg font-bold text-primary">Rp 10.000</span>
+<button class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center active:bg-primary active:text-on-primary transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">add</span>
+</button>
+</div>
+</div>
+</article>
+</section>
+</main>
+<!-- Floating Cart Summary Bar -->
+<div class="fixed bottom-[96px] left-4 right-4 bg-primary text-on-primary rounded-xl p-4 flex justify-between items-center shadow-[0_4px_12px_rgba(0,0,0,0.15)] z-40 active:bg-primary-container active:scale-[0.98] transition-all cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="bg-on-primary text-primary w-8 h-8 rounded-full flex items-center justify-center font-label-lg text-label-lg font-bold">
+                3
+            </div>
+<span class="font-body-md text-body-md font-medium">Item di keranjang</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-title-lg text-title-lg font-bold">Rp 45.000</span>
+<span class="material-symbols-outlined">chevron_right</span>
+</div>
+</div>
+<!-- BottomNavBar (from JSON) -->
+<nav class="bg-surface-container fixed bottom-0 w-full z-50 border-t border-surface-variant flex justify-around items-center w-full h-20 pb-safe px-2">
+<!-- Active Tab: Kasir -->
+<button class="flex flex-col items-center justify-center w-16 h-full gap-1 hover:bg-surface-container-high transition-all active:scale-90 transition-all duration-200">
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">point_of_sale</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Kasir</span>
+</button>
+<!-- Inactive Tab: Riwayat -->
+<button class="flex flex-col items-center justify-center w-16 h-full gap-1 hover:bg-surface-container-high transition-all active:scale-90 transition-all duration-200">
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1">
+<span class="material-symbols-outlined">history</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Riwayat</span>
+</button>
+<!-- Inactive Tab: Produk -->
+<button class="flex flex-col items-center justify-center w-16 h-full gap-1 hover:bg-surface-container-high transition-all active:scale-90 transition-all duration-200">
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1">
+<span class="material-symbols-outlined">inventory_2</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Produk</span>
+</button>
+<!-- Inactive Tab: Dashboard -->
+<button class="flex flex-col items-center justify-center w-16 h-full gap-1 hover:bg-surface-container-high transition-all active:scale-90 transition-all duration-200">
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1">
+<span class="material-symbols-outlined">dashboard</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Dashboard</span>
+</button>
+</nav>
+</body></html>

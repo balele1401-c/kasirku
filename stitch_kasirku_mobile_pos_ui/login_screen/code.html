@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KasirKu - Login</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with custom config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#96f3e1",
+                    "tertiary-fixed": "#62fae3",
+                    "secondary-fixed-dim": "#7ad7c6",
+                    "on-secondary-fixed-variant": "#005046",
+                    "primary-container": "#008378",
+                    "secondary": "#006b5e",
+                    "outline": "#6d7a77",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#d9dadb",
+                    "tertiary": "#00685c",
+                    "on-tertiary-fixed": "#00201c",
+                    "on-primary-fixed": "#00201d",
+                    "inverse-on-surface": "#f0f1f2",
+                    "primary": "#00685f",
+                    "background": "#f8f9fa",
+                    "secondary-container": "#96f3e1",
+                    "tertiary-fixed-dim": "#3cddc7",
+                    "surface": "#f8f9fa",
+                    "on-background": "#191c1d",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed": "#00201b",
+                    "on-surface-variant": "#3d4947",
+                    "primary-fixed": "#89f5e7",
+                    "inverse-surface": "#2e3132",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "surface-tint": "#006a61",
+                    "error": "#ba1a1a",
+                    "inverse-primary": "#6bd8cb",
+                    "tertiary-container": "#008375",
+                    "surface-variant": "#e1e3e4",
+                    "on-tertiary-container": "#f4fffb",
+                    "surface-container-high": "#e7e8e9",
+                    "surface-container": "#edeeef",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#6bd8cb",
+                    "on-secondary-container": "#007164",
+                    "surface-bright": "#f8f9fa",
+                    "outline-variant": "#bcc9c6",
+                    "on-primary-fixed-variant": "#005049",
+                    "on-error-container": "#93000a",
+                    "on-primary-container": "#f4fffc",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-surface": "#191c1d",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#005047",
+                    "surface-container-low": "#f3f4f5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "xs": "4px",
+                    "lg": "24px",
+                    "gutter": "16px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "margin-tablet": "24px",
+                    "base": "8px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        /* Custom styles to hide default number input arrows if needed later, and general resets */
+        input:focus { outline: none; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col items-center justify-center relative p-margin-mobile md:p-margin-tablet">
+<!-- Main Login Container -->
+<main class="w-full max-w-sm flex flex-col items-center z-10">
+<!-- Logo Header -->
+<div class="flex flex-col items-center mb-xl">
+<div class="w-16 h-16 bg-primary-container rounded-2xl flex items-center justify-center mb-sm shadow-sm">
+<span class="material-symbols-outlined filled-icon text-on-primary-container" style="font-size: 36px;">point_of_sale</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">KasirKu</h1>
+</div>
+<!-- Greeting -->
+<div class="text-center mb-lg w-full">
+<h2 class="font-title-lg text-title-lg mb-xs">Selamat Datang</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Silakan masuk ke akun Anda</p>
+</div>
+<!-- Login Form -->
+<form class="w-full flex flex-col gap-md" onsubmit="event.preventDefault();">
+<!-- Email Field -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant ml-xs" for="email">Email</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-md text-outline">mail</span>
+<input class="w-full h-12 pl-12 pr-md bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline transition-colors focus:border-primary focus:ring-1 focus:ring-primary" id="email" placeholder="contoh@toko.com" required="" type="email"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant ml-xs" for="password">Password</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-md text-outline">lock</span>
+<input class="w-full h-12 pl-12 pr-12 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline transition-colors focus:border-primary focus:ring-1 focus:ring-primary" id="password" placeholder="••••••••" required="" type="password"/>
+<button class="absolute right-md text-outline hover:text-on-surface-variant transition-colors" onclick="togglePassword()" type="button">
+<span class="material-symbols-outlined" id="visibility-icon">visibility_off</span>
+</button>
+</div>
+</div>
+<!-- Forgot Password Link -->
+<div class="flex justify-end w-full mt-[-8px]">
+<a class="font-label-md text-label-md text-primary hover:text-primary-fixed-dim transition-colors" href="#">Lupa Password?</a>
+</div>
+<!-- Submit Button -->
+<button class="w-full h-12 mt-sm bg-primary text-on-primary font-label-lg text-label-lg rounded-full flex items-center justify-center hover:bg-surface-tint active:scale-95 transition-all duration-200 shadow-sm" type="submit">
+                Masuk
+            </button>
+</form>
+</main>
+<!-- Footer Versioning -->
+<footer class="absolute bottom-lg text-center w-full">
+<p class="font-label-md text-label-md text-outline-variant">KasirKu v1.0</p>
+</footer>
+<!-- Simple script for password visibility toggle -->
+<script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const visibilityIcon = document.getElementById('visibility-icon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                visibilityIcon.textContent = 'visibility';
+            } else {
+                passwordInput.type = 'password';
+                visibilityIcon.textContent = 'visibility_off';
+            }
+        }
+    </script>
+</body></html>
