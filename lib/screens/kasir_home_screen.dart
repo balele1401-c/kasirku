@@ -54,25 +54,78 @@ class _KasirHomeScreenState extends State<KasirHomeScreen> {
     }
 
     return Scaffold(
-      backgroundColor: AppColors.surface,
+      backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        backgroundColor: AppColors.surfaceContainerLowest,
+        elevation: 0,
+        toolbarHeight: 70,
+        title: Row(
           children: [
-            Text(
-              tokoProvider.toko?.nama ?? 'KasirKu POS',
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            Container(
+              width: 42,
+              height: 42,
+              decoration: BoxDecoration(
+                color: AppColors.primaryContainer,
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.storefront_rounded,
+                color: AppColors.onPrimaryContainer,
+                size: 24,
+              ),
             ),
-            Text(
-              'Kasir: ${authProvider.karyawan?.nama ?? "Staff"}',
-              style: const TextStyle(fontSize: 12, color: AppColors.onSurfaceVariant),
+            const SizedBox(width: 12),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  tokoProvider.toko?.nama ?? 'KasirKu POS',
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.onSurface,
+                    fontSize: 18,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Row(
+                  children: [
+                    Container(
+                      width: 8,
+                      height: 8,
+                      decoration: const BoxDecoration(
+                        color: Colors.green,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      authProvider.karyawan?.nama ?? "Kasir Active",
+                      style: theme.textTheme.labelMedium?.copyWith(
+                        color: AppColors.onSurfaceVariant,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
         actions: [
           if (authProvider.karyawan != null && authProvider.karyawan!.isOwner)
             IconButton(
-              icon: const Icon(Icons.dashboard_rounded),
+              icon: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: AppColors.secondaryContainer,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.dashboard_outlined,
+                  color: AppColors.onSecondaryContainer,
+                  size: 20,
+                ),
+              ),
               tooltip: 'Dashboard Owner',
               onPressed: () {
                 Navigator.of(context).push(
@@ -81,7 +134,7 @@ class _KasirHomeScreenState extends State<KasirHomeScreen> {
               },
             ),
           IconButton(
-            icon: const Icon(Icons.logout_rounded),
+            icon: const Icon(Icons.logout_rounded, color: AppColors.error),
             tooltip: 'Logout',
             onPressed: () async {
               await authProvider.logout();
@@ -92,6 +145,7 @@ class _KasirHomeScreenState extends State<KasirHomeScreen> {
               }
             },
           ),
+          const SizedBox(width: 8),
         ],
       ),
       body: Stack(
